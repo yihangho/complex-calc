@@ -34,6 +34,31 @@ function execute(input) {
 						stack.push(a.divide(b));
 					}
 					break;
+				case "abs":
+					if (stack.length >= 1) {
+						var a = stack.pop();
+						stack.push(a.modulus());
+					}
+					break;
+				case "arg":
+					if (stack.length >= 1) {
+						var a = stack.pop();
+						stack.push(a.argument());
+					}
+					break;
+				case "re":
+					if (stack.length >= 1) {
+						var a = stack.pop();
+						stack.push(a.real_part());
+						console.log(stack);
+					}
+					break;
+				case "im":
+					if (stack.length >= 1) {
+						var a = stack.pop();
+						stack.push(a.imaginary_part());
+					}
+					break;
 			}
 		}
 	}
