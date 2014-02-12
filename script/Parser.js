@@ -7,6 +7,9 @@ function parse(input) {
 		"/": 1
 	};
 
+	// Define built-in functions
+	var builtInFunctions = ["abs", "arg", "re", "im"];
+
 	// Convert input string to lowercase and remove white spaces from the beginning and end of the string
 	input = input.toLowerCase().trim();
 
@@ -20,7 +23,7 @@ function parse(input) {
 
 	// Convert the input expression to RPN
 	while (input.length > 0) {
-		if (input[0] == "i") {
+		if (input.search(/^i\W/) != -1 || input.search(/^i$/) != -1) {
 			operand.push(new Complex(0, 1));
 			input = input.substr(1).trim();
 			previousType = "number"
@@ -45,8 +48,13 @@ function parse(input) {
 			while (operator.length && operator.top() != "(") {
 				operand.push(operator.pop());
 			}
-			if (operand.length) {
+			if (operator.length) {
 				operator.pop();
+				if (operator.length && builtInFunctions.indexOf(operator.top())) {
+					operand.push(operator.pop());
+				}
+			} else {
+				// Error!
 			}
 			input = input.substr(1).trim();
 			previousType = ")";
@@ -58,7 +66,16 @@ function parse(input) {
 			operator.push(op);
 			previousType = input[0];
 			input = input.substr(1).trim();
-		} 
+		} else {
+			input.search(/^(\w+)/);
+			token = RegExp["$1"];
+			if (builtInFunctions.indexOf(token) != -1) {
+				operator.push(token);
+			} else {
+				// Error!
+			}
+			input = input.substr(token.length).trim();
+		}
 	}
 
 	// Push the remaining operators.
