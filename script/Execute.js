@@ -34,6 +34,12 @@ function execute(input) {
 						stack.push(a.divide(b));
 					}
 					break;
+				case "^":
+					if (stack.length >= 2) {
+						var b = stack.pop(), a = stack.pop();
+						stack.push(a.exponent(b));
+					}
+					break;
 				case "abs":
 					if (stack.length >= 1) {
 						var a = stack.pop();
