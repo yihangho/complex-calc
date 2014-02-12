@@ -35,11 +35,11 @@ function Complex(re, im) {
 		Complex.prototype.modulus = function() {
 			var a2 = this.re * this.re;
 			var b2 = this.im * this.im;
-			return Math.sqrt(a2 + b2);
+			return new Complex(Math.sqrt(a2 + b2), 0);
 		};
 
 		Complex.prototype.argument = function() {
-			return Math.atan2(this.im, this.re);
+			return new Complex(Math.atan2(this.im, this.re), 0);
 		};
 
 		Complex.prototype.polar = function() {
