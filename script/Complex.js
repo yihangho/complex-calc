@@ -32,6 +32,18 @@ function Complex(re, im) {
 			return this;
 		};
 
+		Complex.prototype.exponent = function(another) {
+			console.log(another);
+			var r = this.modulus(), t = this.argument();
+			console.log("r = " + r);
+			console.log("t = " + t);
+			r = Math.pow(r, another.re);
+			t *= another.re;
+			this.re = r * Math.cos(t);
+			this.im = r * Math.sin(t);
+			return this;
+		}
+
 		Complex.prototype.real_part = function() {
 			return new Complex(this.re, 0);
 		};
