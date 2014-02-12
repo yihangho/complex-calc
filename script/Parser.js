@@ -4,7 +4,8 @@ function parse(input) {
 		"+": 0,
 		"-": 0,
 		"*": 1,
-		"/": 1
+		"/": 1,
+		"^": 2
 	};
 
 	// Define built-in functions
@@ -27,7 +28,7 @@ function parse(input) {
 			operand.push(new Complex(0, 1));
 			input = input.substr(1).trim();
 			previousType = "number"
-		} else if (input.search(/^(\d+)(i*)/) != -1) {
+		} else if (input.search(/^(\d+\.*\d*)(i*)/) != -1) {
 			if (RegExp["$2"]) {
 				operand.push(new Complex(0, parseFloat(RegExp["$1"])));
 			} else {
