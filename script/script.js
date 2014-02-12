@@ -1,7 +1,5 @@
 window.addEventListener("load", function() {
-	console.log("Hello");
 	var submitBtn = document.getElementById("submit");
-	console.log(submitBtn);
 	submitBtn.addEventListener("click", function() {
 		var inputBox = document.getElementById("input");
 		var input = inputBox.value;
