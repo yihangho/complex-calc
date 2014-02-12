@@ -32,6 +32,14 @@ function Complex(re, im) {
 			return this;
 		};
 
+		Complex.prototype.real_part = function() {
+			return new Complex(this.re, 0);
+		};
+
+		Complex.prototype.imaginary_part = function() {
+			return new Complex(this.im, 0);
+		};
+
 		Complex.prototype.modulus = function() {
 			var a2 = this.re * this.re;
 			var b2 = this.im * this.im;
