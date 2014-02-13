@@ -73,14 +73,24 @@ function Complex(re, im) {
 
 		Complex.prototype.toString = function() {
 			if (this.re && this.im) {
-				if (this.im >= 0) {
+				if (this.im == 1) {
+					return this.re + " + i";
+				} else if (this.im == -1) {
+					return this.re + " - i";
+				} else if (this.im > 0) {
 					return this.re + " + " + this.im + "i";
 				} else {
 					return this.re + " - " + -1 * this.im + "i";
 				}
 				
 			} else if (this.im) {
-				return this.im + "i";
+				if (this.im == 1) {
+					return "i";
+				} else if (this.im == -1) {
+					return "-i";
+				} else {
+					return this.im + "i";
+				}
 			} else {
 				return this.re;
 			}
