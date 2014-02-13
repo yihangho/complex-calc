@@ -55,7 +55,7 @@ function parse(input) {
 					operand.push(operator.pop());
 				}
 			} else {
-				// Error!
+				throw new Error("Mismatched parenthesis.");
 			}
 			input = input.substr(1).trim();
 			previousType = ")";
@@ -73,7 +73,7 @@ function parse(input) {
 			if (builtInFunctions.indexOf(token) != -1) {
 				operator.push(token);
 			} else {
-				// Error!
+				throw new Error("Unrecognized token '" + token + "'.");
 			}
 			input = input.substr(token.length).trim();
 		}
@@ -81,7 +81,11 @@ function parse(input) {
 
 	// Push the remaining operators.
 	while (operator.length) {
-		operand.push(operator.pop());
+		if (operator.top() != "(") {
+			operand.push(operator.pop());
+		} else {
+			operator.pop();
+		}
 	}
 
 	return operand;

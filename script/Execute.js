@@ -1,7 +1,18 @@
 function execute(input) {
 	// input should be an array given by parse()
 
-	var stack = [];
+	function getOperands(num) {
+		var output = [];
+		if (stack.length < num) {
+			throw new Error("Not enough operand(s).");
+		}
+		for (var i = 0; i < num; i++) {
+			output.unshift(stack.pop());
+		}
+		return output;
+	}
+
+	var stack = [], tmp;
 
 	for (var i = 0; i < input.length; i++) {
 		var cur = input[i];
@@ -11,59 +22,40 @@ function execute(input) {
 		} else {
 			switch(cur) {
 				case "+":
-					if (stack.length >= 2) {
-						var b = stack.pop(), a = stack.pop();
-						stack.push(a.add(b));
-					}
+					tmp = getOperands(2);
+					stack.push(tmp[0].add(tmp[1]));
 					break;
 				case "-":
-					if (stack.length >= 2) {
-						var b = stack.pop(), a = stack.pop();
-						stack.push(a.minus(b));
-					}
+					tmp = getOperands(2);
+					stack.push(tmp[0].minus(tmp[1]));
 					break;
 				case "*":
-					if (stack.length >= 2) {
-						var b = stack.pop(), a = stack.pop();
-						stack.push(a.multiply(b));
-					}
+					tmp = getOperands(2);
+					stack.push(tmp[0].multiply(tmp[1]));
 					break;
 				case "/":
-					if (stack.length >= 2) {
-						var b = stack.pop(), a = stack.pop();
-						stack.push(a.divide(b));
-					}
+					tmp = getOperands(2);
+					stack.push(tmp[0].divide(tmp[1]));
 					break;
 				case "^":
-					if (stack.length >= 2) {
-						var b = stack.pop(), a = stack.pop();
-						stack.push(a.exponent(b));
-					}
+					tmp = getOperands(2);
+					stack.push(tmp[0].exponent(tmp[1]));
 					break;
 				case "abs":
-					if (stack.length >= 1) {
-						var a = stack.pop();
-						stack.push(a.modulus());
-					}
+					tmp = getOperands(1);
+					stack.push(tmp[0].modulus());
 					break;
 				case "arg":
-					if (stack.length >= 1) {
-						var a = stack.pop();
-						stack.push(a.argument());
-					}
+					tmp = getOperands(1);
+					stack.push(tmp[0].argument());
 					break;
 				case "re":
-					if (stack.length >= 1) {
-						var a = stack.pop();
-						stack.push(a.real_part());
-						console.log(stack);
-					}
+					tmp = getOperands(1);
+					stack.push(tmp[0].real_part());
 					break;
 				case "im":
-					if (stack.length >= 1) {
-						var a = stack.pop();
-						stack.push(a.imaginary_part());
-					}
+					tmp = getOperands(1);
+					stack.push(tmp[0].imaginary_part());
 					break;
 			}
 		}
