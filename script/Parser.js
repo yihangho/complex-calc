@@ -20,14 +20,14 @@ function parse(input) {
 		return operator[operator.length - 1];
 	};
 
-	var previousType;
+	var previousType, negative = false;
 
 	// Convert the input expression to RPN
 	while (input.length > 0) {
 		if (input.search(/^i\W/) != -1 || input.search(/^i$/) != -1) {
 			operand.push(new Complex(0, 1));
 			input = input.substr(1).trim();
-			previousType = "number"
+			previousType = "number";
 		} else if (input.search(/^(\d+\.*\d*)(i*)/) != -1) {
 			if (RegExp["$2"]) {
 				operand.push(new Complex(0, parseFloat(RegExp["$1"])));
@@ -61,17 +61,22 @@ function parse(input) {
 			previousType = ")";
 		} else if (precedence.hasOwnProperty(input[0])) {
 			var op = input[0];
+			if ((previousType == "operator" || previousType == "(" || previousType == "function" || previousType == undefined) && op == "-") {
+				operand.push(new Complex(-1, 0));
+				op = "*";
+			}
 			while (operator.length && precedence[op] <= precedence[operator.top()]) {
 				operand.push(operator.pop());
 			}
 			operator.push(op);
-			previousType = input[0];
+			previousType = "operator";
 			input = input.substr(1).trim();
 		} else {
 			input.search(/^(\w+)/);
 			token = RegExp["$1"];
 			if (builtInFunctions.indexOf(token) != -1) {
 				operator.push(token);
+				previousType = "function";
 			} else {
 				throw new Error("Unrecognized token '" + token + "'.");
 			}
