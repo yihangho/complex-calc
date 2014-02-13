@@ -57,6 +57,10 @@ function execute(input) {
 					tmp = getOperands(1);
 					stack.push(tmp[0].imaginary_part());
 					break;
+				case "conj":
+					tmp = getOperands(1);
+					stack.push(tmp[0].conjugate());
+					break;
 			}
 		}
 	}
