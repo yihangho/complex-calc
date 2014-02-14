@@ -1,11 +1,12 @@
 function parse(input) {
 	// Define the relative precedence of operators
 	var precedence = {
-		"+": 0,
-		"-": 0,
-		"*": 1,
-		"/": 1,
-		"^": 2
+		"=": 0,
+		"+": 1,
+		"-": 1,
+		"*": 2,
+		"/": 2,
+		"^": 3
 	};
 
 	// Define built-in functions
@@ -78,7 +79,8 @@ function parse(input) {
 				operator.push(token);
 				previousType = "function";
 			} else {
-				throw new Error("Unrecognized token '" + token + "'.");
+				operand.push(token);
+				previousType = "variable";
 			}
 			input = input.substr(token.length).trim();
 		}
@@ -92,6 +94,5 @@ function parse(input) {
 			operator.pop();
 		}
 	}
-
 	return operand;
 }

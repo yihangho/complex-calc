@@ -1,4 +1,5 @@
 window.addEventListener("load", function() {
+	var variables = {"ans": new Complex(0, 0)};
 	var submitBtn = document.getElementById("submit");
 	submitBtn.addEventListener("click", function() {
 		var inputBox = document.getElementById("input");
@@ -9,7 +10,8 @@ window.addEventListener("load", function() {
 		}
 
 		try {
-			var output = execute(parse(input)).toString();
+			variables["ans"] = execute(parse(input), variables);
+			var output = variables["ans"].toString();
 			logIO(input, output);
 		} catch(e) {
 			logIO(input, e, true);

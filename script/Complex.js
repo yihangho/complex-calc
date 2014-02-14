@@ -5,43 +5,38 @@ function Complex(re, im) {
 
 	if (typeof this.add != "function") {
 		Complex.prototype.add = function(another) {
-			this.re += another.re;
-			this.im += another.im;
-			return this;
+			var re = this.re + another.re;
+			var im = this.im + another.im;
+			return new Complex(re, im);
 		};
 
 		Complex.prototype.minus = function(another) {
-			this.re -= another.re;
-			this.im -= another.im;
-			return this;
+			var re = this.re - another.re;
+			var im = this.im - another.im;
+			return new Complex(re, im);
 		};
 
 		Complex.prototype.multiply = function(another) {
 			var re = this.re * another.re - this.im * another.im;
 			var im = this.re * another.im + this.im * another.re;
-			this.re = re;
-			this.im = im;
-			return this;
+			return new Complex(re, im);
 		};
 
 		Complex.prototype.divide = function(another) {
 			var denominator = another.re * another.re + another.im * another.im;
-			this.multiply(another.conjugate());
-			this.re /= denominator;
-			this.im /= denominator;
-			return this;
+			var tmp = this.multiply(another.conjugate());
+			tmp.re /= denominator;
+			tmp.im /= denominator;
+			return tmp;
 		};
 
 		Complex.prototype.exponent = function(another) {
-			console.log(another);
 			var r = this.modulus(), t = this.argument();
-			console.log("r = " + r);
-			console.log("t = " + t);
 			r = Math.pow(r, another.re);
 			t *= another.re;
-			this.re = r * Math.cos(t);
-			this.im = r * Math.sin(t);
-			return this;
+			var re = r * Math.cos(t);
+			var im = r * Math.sin(t);
+			return new Complex(re, im);
 		}
 
 		Complex.prototype.real_part = function() {
