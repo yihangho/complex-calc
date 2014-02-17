@@ -31,16 +31,12 @@ function Complex(re, im) {
 		};
 
 		Complex.prototype.exponent = function(another) {
-			console.log("Here!");
 			var r = this.modulus(), t = this.argument(), c = Math.log(r);
-			console.log("r = " + r);
-			console.log("t = " + t);
-			console.log("c = " + c);
 			var newR = Math.exp(c * another.re - another.im * t);
 			var newT = c * another.im + another.re * t;
 			
 			return new Complex(newR * Math.cos(newT), newR * Math.sin(newT));
-		}
+		};
 
 		Complex.prototype.real_part = function() {
 			return new Complex(this.re, 0);
@@ -67,6 +63,10 @@ function Complex(re, im) {
 		Complex.prototype.conjugate = function() {
 			this.im *= -1;
 			return this;
+		};
+
+		Complex.prototype.ln = function() {
+			return new Complex(Math.log(this.modulus().re), this.argument().re);
 		};
 
 		Complex.prototype.toString = function() {

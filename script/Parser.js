@@ -10,7 +10,7 @@ function parse(input) {
 	};
 
 	// Define built-in functions
-	var builtInFunctions = ["abs", "arg", "re", "im", "conj"];
+	var builtInFunctions = ["abs", "arg", "re", "im", "conj", "ln"];
 
 	// Convert input string to lowercase and remove white spaces from the beginning and end of the string
 	input = input.toLowerCase().trim();

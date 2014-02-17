@@ -40,7 +40,7 @@ function execute(input, variables) {
 	}
 
 	var stack = [], tmp;
-	var operators = ["=", "+", "-", "*", "/", "^", "abs", "arg", "re", "im", "conj"];
+	var operators = ["=", "+", "-", "*", "/", "^", "abs", "arg", "re", "im", "conj", "ln"];
 
 	for (var i = 0; i < input.length; i++) {
 		var cur = input[i];
@@ -98,6 +98,10 @@ function execute(input, variables) {
 				case "conj":
 					tmp = getOperands(1, true);
 					stack.push(tmp[0].conjugate());
+					break;
+				case "ln":
+					tmp = getOperands(1, true);
+					stack.push(tmp[0].ln());
 					break;
 			}
 		}
