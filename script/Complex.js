@@ -78,6 +78,10 @@ function Complex(re, im) {
 				fix = undefined;
 			}
 
+			if (!isFinite(this.re) || !isFinite(this.im)) {
+				return "undefined";
+			}
+
 			var re = this.re.toPrecision(fix);
 			var im = this.im.toPrecision(fix);
 
