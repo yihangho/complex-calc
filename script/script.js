@@ -11,7 +11,7 @@ window.addEventListener("load", function() {
 
 		try {
 			variables["ans"] = execute(parse(input), variables);
-			var output = variables["ans"].toString();
+			var output = variables["ans"].toString(variables["fix"]);
 			logIO(input, output);
 		} catch(e) {
 			logIO(input, e);
@@ -29,7 +29,7 @@ window.addEventListener("load", function() {
 			outputDiv.appendChild(document.createTextNode("Error: " + output.message));
 			outputDiv.style.color = "red";
 		} else {
-			outputDiv.appendChild(document.createTextNode("Output: " + output));
+			outputDiv.appendChild(document.createTextNode("Output: " + output.toString()));
 		}
 
 		li.appendChild(inputDiv);

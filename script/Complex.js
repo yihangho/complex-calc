@@ -69,28 +69,39 @@ function Complex(re, im) {
 			return new Complex(Math.log(this.modulus().re), this.argument().re);
 		};
 
-		Complex.prototype.toString = function() {
-			if (this.re && this.im) {
-				if (this.im == 1) {
-					return this.re + " + i";
-				} else if (this.im == -1) {
-					return this.re + " - i";
-				} else if (this.im > 0) {
-					return this.re + " + " + this.im + "i";
+		Complex.prototype.toString = function(fix) {
+			if (fix instanceof Complex) {
+				fix = Math.round(fix.re);
+				fix = Math.min(fix, 21); // fix <= 21
+				fix = Math.max(fix, 1);  // fix >= 1
+			} else {
+				fix = undefined;
+			}
+
+			var re = this.re.toPrecision(fix);
+			var im = this.im.toPrecision(fix);
+
+			if (parseFloat(re) && parseFloat(im)) {
+				if (parseFloat(im) == 1) {
+					return re + " + i";
+				} else if (parseFloat(im) == -1) {
+					return re + " - i";
+				} else if (parseFloat(im) > 0) {
+					return re + " + " + im + "i";
 				} else {
-					return this.re + " - " + -1 * this.im + "i";
+					return re + " - " + -1 * im + "i";
 				}
 				
-			} else if (this.im) {
-				if (this.im == 1) {
+			} else if (parseFloat(im)) {
+				if (parseFloat(im) == 1) {
 					return "i";
-				} else if (this.im == -1) {
+				} else if (parseFloat(im) == -1) {
 					return "-i";
 				} else {
-					return this.im + "i";
+					return im + "i";
 				}
 			} else {
-				return this.re;
+				return re;
 			}
 		};
 	}
