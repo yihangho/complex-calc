@@ -40,7 +40,7 @@ function execute(input, variables) {
 	}
 
 	var stack = [], tmp;
-	var operators = ["=", "+", "-", "*", "/", "^", "abs", "arg", "re", "im", "conj", "ln"];
+	var operators = ["=", "+", "-", "*", "/", "^", "abs", "arg", "re", "im", "conj", "ln", "log"];
 
 	for (var i = 0; i < input.length; i++) {
 		var cur = input[i];
@@ -102,6 +102,10 @@ function execute(input, variables) {
 				case "ln":
 					tmp = getOperands(1, true);
 					stack.push(tmp[0].ln());
+					break;
+				case "log":
+					tmp = getOperands(2, true);
+					stack.push(tmp[0].log(tmp[1]));
 					break;
 			}
 		}

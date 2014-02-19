@@ -69,6 +69,12 @@ function Complex(re, im) {
 			return new Complex(Math.log(this.modulus().re), this.argument().re);
 		};
 
+		Complex.prototype.log = function(base) {
+			var ln = this.ln();
+			var factor = base.ln();
+			return ln.divide(factor);
+		}
+
 		Complex.prototype.toString = function(fix) {
 			if (fix instanceof Complex) {
 				fix = Math.round(fix.re);

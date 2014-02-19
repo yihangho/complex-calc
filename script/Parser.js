@@ -1,16 +1,17 @@
 function parse(input) {
 	// Define the relative precedence of operators
 	var precedence = {
-		"=": 0,
-		"+": 1,
-		"-": 1,
-		"*": 2,
-		"/": 2,
-		"^": 3
+		",": 0,
+		"=": 1,
+		"+": 2,
+		"-": 2,
+		"*": 3,
+		"/": 3,
+		"^": 4
 	};
 
 	// Define built-in functions
-	var builtInFunctions = ["abs", "arg", "re", "im", "conj", "ln"];
+	var builtInFunctions = ["abs", "arg", "re", "im", "conj", "ln", "log"];
 
 	// Convert input string to lowercase and remove white spaces from the beginning and end of the string
 	input = input.toLowerCase().trim();
@@ -48,7 +49,11 @@ function parse(input) {
 			}
 		} else if (input[0] == ")") {
 			while (operator.length && operator.top() != "(") {
-				operand.push(operator.pop());
+				if (operator.top() != ",") {
+					operand.push(operator.pop());
+				} else {
+					operator.pop();
+				}
 			}
 			if (operator.length) {
 				operator.pop();
@@ -67,7 +72,11 @@ function parse(input) {
 				op = "*";
 			}
 			while (operator.length && precedence[op] <= precedence[operator.top()]) {
-				operand.push(operator.pop());
+				if (operator.top() != ",") {
+					operand.push(operator.pop());
+				} else {
+					operator.pop();
+				}
 			}
 			operator.push(op);
 			previousType = "operator";
