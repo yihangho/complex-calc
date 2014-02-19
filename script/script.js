@@ -14,18 +14,18 @@ window.addEventListener("load", function() {
 			var output = variables["ans"].toString();
 			logIO(input, output);
 		} catch(e) {
-			logIO(input, e, true);
+			logIO(input, e);
 		}
 	});
 
-	function logIO(input, output, error) {
+	function logIO(input, output) {
 		var ul = document.getElementById("io-log");
 		var li = document.createElement("li");
 		var inputDiv = document.createElement("div");
 		var outputDiv = document.createElement("div");
 		inputDiv.appendChild(document.createTextNode("Input: " + input));
 		
-		if (error) {
+		if (output instanceof Error) {
 			outputDiv.appendChild(document.createTextNode("Error: " + output.message));
 			outputDiv.style.color = "red";
 		} else {
