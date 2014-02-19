@@ -5,8 +5,14 @@ window.addEventListener("load", function() {
 		"pi": new Complex(Math.PI, 0),
 		"sqrt2": new Complex(Math.SQRT2, 0)
 	};
+
+	var form = document.getElementsByTagName("form")[0];
+	form.addEventListener("submit", calculate);
+	
 	var submitBtn = document.getElementById("submit");
-	submitBtn.addEventListener("click", function() {
+	submitBtn.addEventListener("click", calculate);
+
+	function calculate(event) {
 		var inputBox = document.getElementById("input");
 		var input = inputBox.value;
 
@@ -23,7 +29,9 @@ window.addEventListener("load", function() {
 		}
 
 		inputBox.value = "";
-	});
+
+		event.preventDefault();
+	}
 
 	function logIO(input, output) {
 		var ul = document.getElementById("io-log");
