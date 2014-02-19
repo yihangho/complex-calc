@@ -6,11 +6,44 @@ window.addEventListener("load", function() {
 		"sqrt2": new Complex(Math.SQRT2, 0)
 	};
 
+	var history = [], historyPointer = null;
+
 	var form = document.getElementsByTagName("form")[0];
 	form.addEventListener("submit", calculate);
 	
 	var submitBtn = document.getElementById("submit");
 	submitBtn.addEventListener("click", calculate);
+
+	var inputBox = document.getElementById("input");
+	inputBox.addEventListener("keydown", function(event) {
+		if (event.keyCode == 38) {
+			if (historyPointer === null && history.length) {
+				historyPointer = history.length - 1;
+			} else if (historyPointer > 0) {
+				historyPointer--;
+			}
+
+			displayHistory();
+
+			event.preventDefault();
+		} else if (event.keyCode == 40) {
+			if (historyPointer !== null && historyPointer != history.length - 1) {
+				historyPointer++;
+			}
+
+			displayHistory();
+
+			event.preventDefault();
+		}
+	});
+
+	function displayHistory() {
+		var inputBox = document.getElementById("input");
+
+		if (historyPointer !== null) {
+			inputBox.value = history[historyPointer];
+		}
+	}
 
 	function calculate(event) {
 		var inputBox = document.getElementById("input");
@@ -19,6 +52,10 @@ window.addEventListener("load", function() {
 		if (input.length == 0) {
 			return;
 		}
+
+		history.push(input);
+		// Reset historyPointer
+		historyPointer = null;
 
 		try {
 			variables["ans"] = execute(parse(input), variables);
