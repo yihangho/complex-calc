@@ -108,6 +108,7 @@ function execute(input, variables) {
 	}
 
 	if (stack.length) {
+		resolveAllIfNeeded(stack);
 		return resolve(stack.pop());
 	}
 }
