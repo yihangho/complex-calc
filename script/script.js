@@ -21,6 +21,8 @@ window.addEventListener("load", function() {
 		} catch(e) {
 			logIO(input, e);
 		}
+
+		inputBox.value = "";
 	});
 
 	function logIO(input, output) {
