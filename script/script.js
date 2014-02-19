@@ -1,5 +1,10 @@
 window.addEventListener("load", function() {
-	var variables = {"ans": new Complex(0, 0)};
+	var variables = {
+		"ans": new Complex(0, 0), 
+		"e": new Complex(Math.E, 0), 
+		"pi": new Complex(Math.PI, 0),
+		"sqrt2": new Complex(Math.SQRT2, 0)
+	};
 	var submitBtn = document.getElementById("submit");
 	submitBtn.addEventListener("click", function() {
 		var inputBox = document.getElementById("input");
