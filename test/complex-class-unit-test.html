@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Complex Class Unit Test</title>
+
+	<script src="../script/Complex.js"></script>
+</head>
+<body>
+	<ul id="test-result"></ul>
+
+	<script>
+	window.addEventListener("load", function() {
+		var test = [
+			{
+				"title": "Initialize (1+2i)",
+				"test": function() {
+					var n = new Complex(1, 2);
+					if (n.re == 1 && n.im == 2) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Initialize (-1-2i)",
+				"test": function() {
+					var n = new Complex(-1, -2);
+					if (n.re == -1 && n.im == -2) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Addition (1+2i)+(5-4i)",
+				"test": function() {
+					var a = new Complex(1, 2);
+					var b = new Complex(5, -4);
+					var result = a.add(b);
+					if (result.re == 6 && result.im == -2) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Subtraction (1+2i)-(5-4i)",
+				"test": function() {
+					var a = new Complex(1, 2);
+					var b = new Complex(5, -4);
+					var result = a.minus(b);
+					if (result.re == -4 && result.im == 6) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Multiplication (1+2i)*(5-4i)",
+				"test": function() {
+					var a = new Complex(1, 2);
+					var b = new Complex(5, -4);
+					var result = a.multiply(b);
+					if (result.re == 13 && result.im == 6) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Division (1+2i)/(5-4i)",
+				"test": function() {
+					var a = new Complex(1, 2);
+					var b = new Complex(5, -4);
+					var result = a.divide(b);
+					if (inRange(result.re, -0.0731707317073170, 0.001) && inRange(result.im, 0.34146341463414637, 0.001)) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Exponentiation (1+2i)^(5-4i)",
+				"test": function() {
+					var a = new Complex(1, 2);
+					var b = new Complex(5, -4);
+					var result = a.exponent(b);
+					if (inRange(result.re, -3180.203718571028, 0.001) && inRange(result.im, 3440.71717759186, 0.001)) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Natural logarithm ln(5-4i)",
+				"test": function() {
+					var a = new Complex(5, -4);
+					var result = a.ln();
+					if (inRange(result.re, 1.85678603335215, 0.001) && inRange(result.im, -0.6747409422235526, 0.001)) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Logarithm log_(1+2i)(5-4i)",
+				"test": function() {
+					var a = new Complex(5, -4);
+					var b = new Complex(1, 2);
+					var result = a.log(b);
+					if (inRange(result.re, 0.3988320377709533, 0.001) && inRange(result.im, -1.387201473051637, 0.001)) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Modulus abs(5-4i)",
+				"test": function() {
+					var a = new Complex(5, -4);
+					var result = a.modulus();
+					if (inRange(result.re, 6.4031242374328485, 0.001) && inRange(result.im, 0, 0.001)) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Argument arg(1+2i)",
+				"test": function() {
+					var a = new Complex(1, 2);
+					var result = a.argument();
+					if (inRange(result.re, 1.1071487177940904, 0.001) && inRange(result.im, 0, 0.001)) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Argument arg(1-2i)",
+				"test": function() {
+					var a = new Complex(1, -2);
+					var result = a.argument();
+					if (inRange(result.re, -1.1071487177940904, 0.001) && inRange(result.im, 0, 0.001)) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Argument arg(-1+2i)",
+				"test": function() {
+					var a = new Complex(-1, 2);
+					var result = a.argument();
+					if (inRange(result.re, 2.0344439357957027, 0.001) && inRange(result.im, 0, 0.001)) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Argument arg(-1-2i)",
+				"test": function() {
+					var a = new Complex(-1, -2);
+					var result = a.argument();
+					if (inRange(result.re, -2.0344439357957027, 0.001) && inRange(result.im, 0, 0.001)) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Real part re(5-4i)",
+				"test": function() {
+					var a = new Complex(5, -4);
+					var result = a.real_part();
+					if (result.re == a.re && result.im == 0) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Imaginary part im(5-4i)",
+				"test": function() {
+					var a = new Complex(5, -4);
+					var result = a.imaginary_part();
+					if (result.re == a.im && result.im == 0) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}, {
+				"title": "Conjugate conj(1+2i)",
+				"test": function() {
+					var a = new Complex(1, 2);
+					var result = a.conjugate();
+					if (result.re == a.re && result.im == -1 * a.im) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			}
+		];
+
+		for (var i = 0; i < test.length; i++) {
+			logResult(test[i].title, test[i].test());
+		}
+
+		function inRange(input, target, error) {
+			if (target) {
+				return Math.abs((input-target)/target) <= error;
+			} else {
+				return Math.abs(input) <= error;
+			}
+		}
+
+		function logResult(title, result) {
+			var resultUl = document.getElementById("test-result");
+			var newLi = document.createElement("li");
+			if (!result) {
+				var textNode = document.createTextNode(title + ": " + "pass");
+				newLi.appendChild(textNode);
+				newLi.style.color = "green";
+			} else {
+				var textNode = document.createTextNode(title + ": " + "fail");
+				newLi.appendChild(textNode);
+				newLi.style.color = "red";
+			}
+			resultUl.appendChild(newLi);
+		}
+	});
+	</script>
+</body>
+</html>
