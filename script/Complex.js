@@ -1,4 +1,4 @@
-// This complex class
+// The complex class
 function Complex(re, im) {
 	this.re = re;
 	this.im = im;
@@ -61,8 +61,7 @@ function Complex(re, im) {
 		};
 
 		Complex.prototype.conjugate = function() {
-			this.im *= -1;
-			return this;
+			return new Complex(this.re, -1 * this.im);
 		};
 
 		Complex.prototype.ln = function() {
