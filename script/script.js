@@ -27,8 +27,10 @@ window.addEventListener("load", function() {
 
 			event.preventDefault();
 		} else if (event.keyCode == 40) {
-			if (historyPointer !== null && historyPointer != history.length - 1) {
+			if (historyPointer != history.length - 1) {
 				historyPointer++;
+			} else if (historyPointer == history.length - 1) {
+				historyPointer = null;
 			}
 
 			displayHistory();
@@ -42,6 +44,8 @@ window.addEventListener("load", function() {
 
 		if (historyPointer !== null) {
 			inputBox.value = history[historyPointer];
+		} else {
+			inputBox.value = "";
 		}
 	}
 
